@@ -49,7 +49,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         sharedPreferences = getSharedPreferences(PREF_FILE, MODE_PRIVATE);
         editor = sharedPreferences.edit();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        Log.i(LOG_TAG, "inside main mathod");
         setSupportActionBar(toolbar);
         if (!CheckNetwork.isInternetAvailable(getApplicationContext())) {
             AlertDialogSettingFragment alertDialogSettingFragment = new AlertDialogSettingFragment();
@@ -63,7 +62,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     private void setupRecyclerView() {
         recyclerView = findViewById(R.id.recycler);
         recyclerNumColumn = getResources().getInteger(R.integer.recycler_num_columns);
-        Log.i(LOG_TAG, "the recyclernumcolumn is " + recyclerNumColumn);
         mLayoutManager = new GridLayoutManager(this, recyclerNumColumn);
         recyclerView.setLayoutManager(mLayoutManager);
         makeOperationSearchQuery(stringTest);
@@ -104,7 +102,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 R.array.spinner_list_item_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
-        Log.i(LOG_TAG, "inside option menu");
         int value = sharedPreferences.getInt("positionKey", -1);
         if (value != -1) {
             spinner.setSelection(value);
@@ -178,7 +175,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         if (savedInstanceState != null) {
             savedInstanceState.getString(KEY_URL);
         }
-
     }
 
     @Override

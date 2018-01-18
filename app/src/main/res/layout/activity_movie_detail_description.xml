@@ -121,30 +121,6 @@
         app:layout_constraintStart_toEndOf="@+id/voteAverage"
         app:layout_constraintTop_toTopOf="@+id/txt_movieReleaseDate" />
 
-    <!--<ScrollView-->
-    <!--android:id="@+id/scrollView2"-->
-    <!--android:layout_width="346dp"-->
-    <!--android:layout_height="1dp"-->
-    <!--tools:layout_editor_absoluteX="29dp"-->
-    <!--tools:layout_editor_absoluteY="556dp">-->
-
-    <!--<LinearLayout-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:orientation="vertical">-->
-
-    <!--<TextView-->
-    <!--android:id="@+id/txt_movie_review"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent"-->
-    <!--android:textColor="@android:color/black"-->
-    <!--android:textSize="15sp"-->
-    <!--android:textStyle="bold" />-->
-
-    <!--</LinearLayout>-->
-
-
-    <!--</ScrollView>-->
 
     <Button
         android:id="@+id/btnReview"

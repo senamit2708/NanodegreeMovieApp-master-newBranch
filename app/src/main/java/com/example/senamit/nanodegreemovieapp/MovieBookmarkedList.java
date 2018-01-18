@@ -18,7 +18,7 @@ import android.util.Log;
 import com.example.senamit.nanodegreemovieapp.Data.MovieContract;
 import com.example.senamit.nanodegreemovieapp.Data.MovieContract.*;
 
-public class MovieBookmarkedList extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>, CustomCursorBookmarkMovieAdapter.ListItemClickListener{
+public class MovieBookmarkedList extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>, CustomCursorBookmarkMovieAdapter.ListItemClickListener {
 
     public static final String LOG_TAG = MovieBookmarkedList.class.getSimpleName();
     RecyclerView mRecyclerView;
@@ -39,10 +39,9 @@ public class MovieBookmarkedList extends AppCompatActivity implements LoaderMana
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerViewBookmarked);
-        mLayoutManager= new GridLayoutManager(this, recyclerNumColumn);
+        mLayoutManager = new GridLayoutManager(this, recyclerNumColumn);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-//        mRecyclerView.setAdapter(mAdapter);
         getLoaderManager().initLoader(LOADERID, null, this);
     }
 
@@ -100,7 +99,6 @@ public class MovieBookmarkedList extends AppCompatActivity implements LoaderMana
 
     @Override
     public void onListItemClick(int clikcedItemIndex, int id) {
-        Log.i(LOG_TAG, "isnide the main of onlistitemclick listener");
         Uri currentProductUri = ContentUris.withAppendedId(WishListMovie.CONTENT_URI, id);
         Intent intent = new Intent(this, MovieBookMarkedDescription.class);
         intent.setData(currentProductUri);

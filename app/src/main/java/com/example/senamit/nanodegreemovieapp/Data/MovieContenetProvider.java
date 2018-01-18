@@ -39,10 +39,8 @@ public class MovieContenetProvider extends ContentProvider {
         return uriMatcher;
     }
 
-
     @Override
     public boolean onCreate() {
-
         movieDBHelper = new MovieDBHelper(getContext());
         return true;
     }
@@ -51,13 +49,11 @@ public class MovieContenetProvider extends ContentProvider {
     @Override
     public Cursor query(@NonNull Uri uri, @Nullable String[] projection, @Nullable String selection, @Nullable String[] selectionArgs, @Nullable String sortOrder) {
 
-        Log.i(LOG_TAG, "inside the query method of content provider");
         db = movieDBHelper.getReadableDatabase();
         int match = sUriMatcher.match(uri);
         Cursor retCursor;
         switch (match) {
             case MOVIE_LIST:
-                Log.i(LOG_TAG, "inside table query method full");
                 retCursor = db.query(WishListMovie.TABLE_NAME,
                         projection,
                         selection,
@@ -70,7 +66,6 @@ public class MovieContenetProvider extends ContentProvider {
                 String id = uri.getPathSegments().get(1);
                 String mSelection = "_id=?";
                 String[] mSelectionArgs = new String[]{id};
-                Log.i(LOG_TAG, "inside the list item and the id is  "+id);
                 retCursor = db.query(WishListMovie.TABLE_NAME,
                         projection,
                         mSelection,
@@ -81,9 +76,7 @@ public class MovieContenetProvider extends ContentProvider {
                 break;
             default:
                 throw new android.database.SQLException("uri is bad" + uri);
-
         }
-
         retCursor.setNotificationUri(getContext().getContentResolver(), uri);
         return retCursor;
     }
@@ -98,7 +91,6 @@ public class MovieContenetProvider extends ContentProvider {
     @Override
     public Uri insert(@NonNull Uri uri, @Nullable ContentValues contentValues) {
 
-        Log.i(LOG_TAG, "inside insert method");
         db = movieDBHelper.getWritableDatabase();
         int match = sUriMatcher.match(uri);
         long id;
@@ -107,13 +99,10 @@ public class MovieContenetProvider extends ContentProvider {
             case MOVIE_LIST:
                 id = db.insert(WishListMovie.TABLE_NAME, null, contentValues);
                 if (id > 0) {
-                    Log.i(LOG_TAG, "inside the insertion of new data of table");
                     retUri = ContentUris.withAppendedId(WishListMovie.CONTENT_URI, id);
                 } else {
                     Log.i(LOG_TAG, "inside the exception block of insertion of new data");
-//                    throw  new android.database.SQLException("unable to insert data "+uri);
                 }
-
                 break;
             case MOVIE_LIST_ITEM:
                 break;

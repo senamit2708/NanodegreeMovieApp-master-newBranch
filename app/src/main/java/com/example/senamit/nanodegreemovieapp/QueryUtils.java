@@ -105,7 +105,6 @@ public class QueryUtils {
             StringBuilder imagePath = new StringBuilder();
             imagePath.append("http://image.tmdb.org/t/p/w500");
             imagePath.append(movieImage);
-            Log.i(LOG_TAG, "movie id is " + movieId);
             movieDetailsArrayList.add(new MovieDetails(movieName, releaseDate, movieRating, movieOverView, imagePath.toString(), movieId));
         }
         return movieDetailsArrayList;
@@ -117,37 +116,31 @@ public class QueryUtils {
         String jsonResponsee = null;
         jsonResponsee = makeHttpRequest(url);
         movieDetailsArrayList = extractFeaturesFromJSON(jsonResponsee);
-        Log.i(LOG_TAG, "inside the queryutils to retrive data");
         return movieDetailsArrayList;
     }
 
     public static ArrayList<MovieDetails> fetchMovieReview(String stringUrl) throws IOException, JSONException {
         URL url = createUrl(stringUrl);
-        Log.i(LOG_TAG, "the url is " + url);
         String jsonResponsee = null;
         jsonResponsee = makeHttpRequest(url);
         movieDetailsArrayList = extractFeaturesJSONForReview(jsonResponsee);
-        Log.i(LOG_TAG, "inside the fetchMovieReview to retrive data");
         return movieDetailsArrayList;
 
     }
 
     public static ArrayList<MovieDetails> extractFeaturesJSONForReview(String jsonResponse) throws JSONException {
         if (TextUtils.isEmpty(jsonResponse)) {
-            Log.i(LOG_TAG,"inside empty json of review");
             return null;
         }
         String movieReview = null;
         ArrayList<MovieDetails> movieDetailsArrayList = new ArrayList<MovieDetails>();
         JSONObject baseJsonObject = new JSONObject(jsonResponse);
         JSONArray resultJsonArray = baseJsonObject.optJSONArray("results");
-        Log.i(LOG_TAG,"the length of resultjsonarray is "+resultJsonArray.length());
+        Log.i(LOG_TAG, "the length of resultjsonarray is " + resultJsonArray.length());
         for (int i = 0; i < resultJsonArray.length(); i++) {
-            Log.i(LOG_TAG, "inside the loop of review");
             JSONObject resultJsonObject = resultJsonArray.optJSONObject(i);
 
             movieReview = resultJsonObject.optString("content");
-            Log.i(LOG_TAG,"the review is  "+movieReview);
             movieDetailsArrayList.add(new MovieDetails(movieReview));
         }
         return movieDetailsArrayList;
@@ -155,21 +148,19 @@ public class QueryUtils {
 
     public static ArrayList<MovieDetails> fetchMovieVideo(String stringUrl) throws IOException, JSONException {
         URL url = createUrl(stringUrl);
-        Log.i(LOG_TAG, "the url is " + url);
         String jsonResponsee = null;
         jsonResponsee = makeHttpRequest(url);
         movieDetailsArrayList = extractFeaturesJSONForVideo(jsonResponsee);
-        Log.i(LOG_TAG, "inside the fetchMovieReview to retrive data");
         return movieDetailsArrayList;
 
     }
 
     public static ArrayList<MovieDetails> extractFeaturesJSONForVideo(String jsonResponse) throws JSONException {
-        if (TextUtils.isEmpty(jsonResponse)){
+        if (TextUtils.isEmpty(jsonResponse)) {
             return null;
         }
-        String movieVideo=null;
-        String videoName=null;
+        String movieVideo = null;
+        String videoName = null;
         ArrayList<MovieDetails> movieDetailsArrayList = new ArrayList<MovieDetails>();
         JSONObject baseJsonObject = new JSONObject(jsonResponse);
         JSONArray resultJsonArray = baseJsonObject.optJSONArray("results");
@@ -177,10 +168,9 @@ public class QueryUtils {
             JSONObject trailerJsonObject = resultJsonArray.optJSONObject(i);
 
             movieVideo = trailerJsonObject.optString("key");
-            videoName= trailerJsonObject.optString("name");
+            videoName = trailerJsonObject.optString("name");
             movieDetailsArrayList.add(new MovieDetails(movieVideo, videoName));
         }
-        Log.i(LOG_TAG, "inside the extractFeaturesJSONForVideo");
         return movieDetailsArrayList;
 
     }

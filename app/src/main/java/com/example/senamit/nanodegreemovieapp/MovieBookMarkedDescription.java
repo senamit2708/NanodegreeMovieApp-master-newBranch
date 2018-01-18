@@ -21,10 +21,9 @@ import com.example.senamit.nanodegreemovieapp.Data.MovieContract.*;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
-public class MovieBookMarkedDescription extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>{
+public class MovieBookMarkedDescription extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
     private Uri currentProductUri;
-    TextView txtText;
     TextView txtMovieName;
     TextView txtMovieReleaseDate;
     TextView txtMovieDescr;
@@ -32,6 +31,7 @@ public class MovieBookMarkedDescription extends AppCompatActivity implements Loa
     Target target;
 
     public static final String LOG_TAG = MovieBookMarkedDescription.class.getSimpleName();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,10 +51,9 @@ public class MovieBookMarkedDescription extends AppCompatActivity implements Loa
         txtMovieReleaseDate = findViewById(R.id.txt_movieReleaseDate);
         txtMovieDescr = findViewById(R.id.txt_movie_descr);
         txtMovieRating = findViewById(R.id.movieRating);
-            if (currentProductUri!=null){
-                getLoaderManager().initLoader(54, null, this);
-            }
-
+        if (currentProductUri != null) {
+            getLoaderManager().initLoader(54, null, this);
+        }
 
         target = new Target() {
             @Override
@@ -77,7 +76,6 @@ public class MovieBookMarkedDescription extends AppCompatActivity implements Loa
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
 
         String[] projection = {WishListMovie.COLUMN_MOVIE_NAME, WishListMovie.COLUMN_MOVIE_RELEASE_DATE};
-        Log.i(LOG_TAG, "the uri is  "+ currentProductUri  );
         CursorLoader cursorLoader = new CursorLoader(
                 this,
                 currentProductUri,
@@ -85,58 +83,41 @@ public class MovieBookMarkedDescription extends AppCompatActivity implements Loa
                 null,
                 null,
                 null);
-        Log.i(LOG_TAG, "the curosrLoader is  "+cursorLoader);
 
-//        Log.i("TAG", "THE VALUE OF MSELECTION IS "+mSelection);
         return cursorLoader;
     }
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
-        if (cursor==null || cursor.getCount()<1){
-            Log.i(LOG_TAG, "inside null block of onloadfinished");
+        if (cursor == null || cursor.getCount() < 1) {
             return;
         }
         int i = cursor.getPosition();
-        Log.i(LOG_TAG, "inside on load finisher method "+i);
-//        cursor.moveToNext();
-//        try {
-            while (cursor.moveToNext()){
-                Log.i(LOG_TAG, "inside on load finisher method of while block "+i);
-                Log.i(LOG_TAG, "inside on load finisher method try blcok ");
-                int indexMovieName= cursor.getColumnIndex(WishListMovie.COLUMN_MOVIE_NAME);
-                int indexMovieReleaseDate = cursor.getColumnIndex(WishListMovie.COLUMN_MOVIE_RELEASE_DATE);
-                int indexMoviePoster = cursor.getColumnIndex(WishListMovie.COLUMN_MOVIE_POSTER);
-                int indexMovieRating = cursor.getColumnIndex(WishListMovie.COLUMN_MOVIE_RATING);
-                int indexMovieOverview = cursor.getColumnIndex(WishListMovie.COLUMN_MOVIE_OVERVIEW);
-                String movieName= cursor.getString(indexMovieName);
-                Log.i(LOG_TAG, "the movie name is "+movieName);
-                String movieReleaseDate = cursor.getString(indexMovieReleaseDate);
-                String moviePoster = cursor.getString(indexMoviePoster);
-                String movieRating = cursor.getString(indexMovieRating);
-                String movieOverview = cursor.getString(indexMovieOverview);
-                txtMovieName.setText(movieName);
-                txtMovieReleaseDate.setText(movieReleaseDate);
-                txtMovieRating.setText(movieRating);
-                txtMovieDescr.setText(movieOverview);
-                Picasso.with(this).load(moviePoster).into(target);
-
-
-            }
-
-            cursor.moveToPosition(-1);
-
-// finally {
-//            cursor.close();
-//        }
-
-
+        while (cursor.moveToNext()) {
+            Log.i(LOG_TAG, "inside on load finisher method of while block " + i);
+            Log.i(LOG_TAG, "inside on load finisher method try blcok ");
+            int indexMovieName = cursor.getColumnIndex(WishListMovie.COLUMN_MOVIE_NAME);
+            int indexMovieReleaseDate = cursor.getColumnIndex(WishListMovie.COLUMN_MOVIE_RELEASE_DATE);
+            int indexMoviePoster = cursor.getColumnIndex(WishListMovie.COLUMN_MOVIE_POSTER);
+            int indexMovieRating = cursor.getColumnIndex(WishListMovie.COLUMN_MOVIE_RATING);
+            int indexMovieOverview = cursor.getColumnIndex(WishListMovie.COLUMN_MOVIE_OVERVIEW);
+            String movieName = cursor.getString(indexMovieName);
+            Log.i(LOG_TAG, "the movie name is " + movieName);
+            String movieReleaseDate = cursor.getString(indexMovieReleaseDate);
+            String moviePoster = cursor.getString(indexMoviePoster);
+            String movieRating = cursor.getString(indexMovieRating);
+            String movieOverview = cursor.getString(indexMovieOverview);
+            txtMovieName.setText(movieName);
+            txtMovieReleaseDate.setText(movieReleaseDate);
+            txtMovieRating.setText(movieRating);
+            txtMovieDescr.setText(movieOverview);
+            Picasso.with(this).load(moviePoster).into(target);
+        }
+        cursor.moveToPosition(-1);
     }
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
-
-//        txtText.setText(null);
     }
 
 }
